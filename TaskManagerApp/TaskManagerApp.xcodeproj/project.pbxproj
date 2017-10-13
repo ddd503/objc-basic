@@ -181,12 +181,10 @@
 		4546544D1F8A419B00D4AE67 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				45CD6DD81F8F87C10044DCAC /* FolderList */,
+				45CD6DD91F8F87D10044DCAC /* TaskList */,
 				4546546F1F8A8F6F00D4AE67 /* Database.h */,
 				454654701F8A8F6F00D4AE67 /* Database.m */,
-				454654721F8B224900D4AE67 /* FolderListData.h */,
-				454654731F8B224900D4AE67 /* FolderListData.m */,
-				454654751F8BB1C100D4AE67 /* TaskListData.h */,
-				454654761F8BB1C100D4AE67 /* TaskListData.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,6 +216,7 @@
 				454654291F8A40FE00D4AE67 /* Info.plist */,
 				4546542A1F8A40FE00D4AE67 /* main.m */,
 				454654211F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld */,
+				454654261F8A40FE00D4AE67 /* LaunchScreen.storyboard */,
 				45C468FD1F8CB6D200DDE2EA /* Localizable.strings */,
 			);
 			path = Others;
@@ -229,7 +228,6 @@
 				454654551F8A429700D4AE67 /* FolderListController.storyboard */,
 				454654511F8A420700D4AE67 /* FolderListController.h */,
 				454654521F8A420700D4AE67 /* FolderListController.m */,
-				454654261F8A40FE00D4AE67 /* LaunchScreen.storyboard */,
 			);
 			path = FolderList;
 			sourceTree = "<group>";
@@ -266,6 +264,24 @@
 				454654671F8A449E00D4AE67 /* FolderListCell.xib */,
 			);
 			path = FolderList;
+			sourceTree = "<group>";
+		};
+		45CD6DD81F8F87C10044DCAC /* FolderList */ = {
+			isa = PBXGroup;
+			children = (
+				454654721F8B224900D4AE67 /* FolderListData.h */,
+				454654731F8B224900D4AE67 /* FolderListData.m */,
+			);
+			path = FolderList;
+			sourceTree = "<group>";
+		};
+		45CD6DD91F8F87D10044DCAC /* TaskList */ = {
+			isa = PBXGroup;
+			children = (
+				454654751F8BB1C100D4AE67 /* TaskListData.h */,
+				454654761F8BB1C100D4AE67 /* TaskListData.m */,
+			);
+			path = TaskList;
 			sourceTree = "<group>";
 		};
 		80565116E1CA40274F3598F1 /* Pods */ = {

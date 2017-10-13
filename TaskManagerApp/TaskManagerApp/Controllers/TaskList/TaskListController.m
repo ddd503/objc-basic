@@ -27,8 +27,6 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
-    /// ナビゲーションバーのタイトルを変更（フォルダ名に合わせて）
-    self.navigationItem.title = self.didTapFolderData.folderName;
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -38,6 +36,8 @@ static CGFloat const estimatedCellHeight = 80;
 #pragma mark - Private Methods
 - (void)setup {
     [self setupTableView];
+    /// ナビゲーションバーのタイトルを変更（フォルダ名に合わせて）
+    self.navigationItem.title = self.didTapFolderData.folderName;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem.title = [NSBundle.mainBundle localizedStringForKey:@"edit" value:nil table:@"Localizable"];
     self.database = [[Database alloc] init];
@@ -115,6 +115,7 @@ static CGFloat const estimatedCellHeight = 80;
                                    handler:^(UIAlertAction *action) {
                                        self.inputTaskName = @"";
                                    }];
+    
     UIAlertAction *saveButton = [UIAlertAction
                                  actionWithTitle:[NSBundle.mainBundle localizedStringForKey:@"save" value:nil table:@"Localizable"]
                                  style:UIAlertActionStyleDefault

@@ -90,6 +90,7 @@ static NSString *const moveStoryboardName = @"TaskList";
                                      NSDate *inputDate = [NSDate date];
                                      [self.database folderNameInsert:self.inputFolderName inputDate:inputDate];
                                  }];
+    
     // 用意したボタンアクション２つをアラートコントローラーにセット
     [newFolderNameAleartController addAction:cancelButton];
     [newFolderNameAleartController addAction:saveButton];
@@ -128,8 +129,12 @@ static NSString *const moveStoryboardName = @"TaskList";
                                          [self.database updateFolderList:self.inputFolderName updateDate:updateDate editFolderData:didTapCellData];
                                      }
                                  }];
+    
+    saveButton.enabled = NO;
+    
     [editFolderNameAleartController addAction:cancelButton];
     [editFolderNameAleartController addAction:saveButton];
+    
     [editFolderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = [NSBundle.mainBundle localizedStringForKey:@"setFolderName" value:nil table:@"Localizable"];
         textField.text = didTapCellData.folderName;
@@ -181,6 +186,13 @@ static NSString *const moveStoryboardName = @"TaskList";
 #pragma mark - TextFieldDelegate Methods
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     self.inputFolderName = textField.text;
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    // テキストフィールドが空欄かどうかチェック
+    if (textField.text.length == 0) {
+        // ここでアラートアクションボタンを押せるようにしたい
+    }
+    return YES;
 }
 
 #pragma mark - DatabaseDelegate Methods
