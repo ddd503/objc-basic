@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TaskListData.h"
 
 @interface TaskListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *updateTaskDateLabel;
 + (NSString *)taskListCellNibName;
 + (NSString *)taskListCellIdentifier;
+- (void)setTaskListData:(TaskListData *)taskListData;
 @end

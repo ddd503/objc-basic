@@ -23,4 +23,16 @@ NSString *const taskListCellIdentifier = @"TaskListCell";
     return taskListCellIdentifier;
 }
 
+- (void)setTaskListData:(TaskListData *)taskListData {
+    self.taskNameLabel.text = taskListData.taskName;
+    self.updateTaskDateLabel.text = [self chengeDateData:taskListData.updateTaskDate];
+}
+
+- (NSString *)chengeDateData:(NSDate *)date {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    NSString *dateText = [formatter stringFromDate:date];
+    return dateText;
+}
+
 @end

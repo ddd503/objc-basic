@@ -25,8 +25,7 @@
     
     TaskListCell *cell = [tableView dequeueReusableCellWithIdentifier:[TaskListCell taskListCellIdentifier] forIndexPath:indexPath];
     
-    cell.taskNameLabel.text = self.taskListDataList[indexPath.row].taskName;
-    cell.updateTaskDateLabel.text = [self chengeDateData:self.taskListDataList[indexPath.row].updateTaskDate];
+    [cell setTaskListData:self.taskListDataList[indexPath.row]];
     
     return cell;
 }
@@ -43,11 +42,6 @@
     }
 }
 
-- (NSString *)chengeDateData:(NSDate *)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSString *dateText = [formatter stringFromDate:date];
-    return dateText;
-}
+
 
 @end

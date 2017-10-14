@@ -24,4 +24,10 @@ NSString *const folderListCellIdentifier = @"FolderListCell";
     return folderListCellIdentifier;
 }
 
+- (void)setFolderListCellData:(FolderListData *)folderListData {
+    self.folderNameLabel.text = folderListData.folderName;
+    self.haveTaskCountLabel.text = [NSString stringWithFormat:@"%ld", folderListData.tasks];
+}
+
+
 @end

@@ -31,6 +31,7 @@ static CGFloat const estimatedCellHeight = 80;
     [super viewDidLoad];
     [self setup];
 }
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self updateView];
@@ -45,10 +46,11 @@ static CGFloat const estimatedCellHeight = 80;
     self.database = [[Database alloc] init];
     self.database.delegate = self;
 }
+
 - (void)setupTableView {
     UINib *nib = [UINib nibWithNibName:[FolderListCell folderListCellNibName] bundle:nil];
     [self.folderListTableView registerNib:nib forCellReuseIdentifier:[FolderListCell folderListCellIdentifier]];
-    // 高さ自動化と基準の高さ
+
     self.folderListTableView.rowHeight = UITableViewAutomaticDimension;
     self.folderListTableView.estimatedRowHeight = estimatedCellHeight;
     
@@ -57,6 +59,7 @@ static CGFloat const estimatedCellHeight = 80;
     
     self.folderListTableView.delegate = self;
 }
+
 - (void)reloadFolderListToolbar:(BOOL)editing {
     if (editing) {
         self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"完了");
@@ -66,6 +69,7 @@ static CGFloat const estimatedCellHeight = 80;
         [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"newFolder", @"新規フォルダ")];
     }
 }
+
 - (void)folderListsAlertTextFieldDidChange:(UITextField *)sender {
     // 表示されているアラートコントローラーをインスタンス化
     UIAlertController *alertController = (UIAlertController *)self.presentedViewController;

@@ -26,8 +26,7 @@
     
     FolderListCell *cell = [tableView dequeueReusableCellWithIdentifier:[FolderListCell folderListCellIdentifier] forIndexPath:indexPath];
     
-    cell.folderNameLabel.text = self.folderListDataList[indexPath.row].folderName;
-    cell.haveTaskCountLabel.text = [NSString stringWithFormat:@"%ld", self.folderListDataList[indexPath.row].tasks];
+    [cell setFolderListCellData:self.folderListDataList[indexPath.row]];
     
     /// 降順で日付を取り出しているか確認
     [self checkdate:indexPath folderName:self.folderListDataList[indexPath.row].folderName date:self.folderListDataList[indexPath.row].updateDate];

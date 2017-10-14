@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FolderListData.h"
 
 @interface FolderListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *folderNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *haveTaskCountLabel;
 + (NSString *)folderListCellNibName;
 + (NSString *)folderListCellIdentifier;
+- (void)setFolderListCellData:(FolderListData *)folderListData;
 @end
