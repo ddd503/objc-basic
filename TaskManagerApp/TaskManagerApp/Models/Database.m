@@ -158,10 +158,8 @@
     [self.db executeUpdate:sql, inputTaskName, inputDate, @(folderData.folderId)];
     [self.db close];
     
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
-    folderData.tasks = selectArray.count;
     /// フォルダリストをアップデート
-    [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
+    [self countTasks:folderData.folderId];
     /// タスクリストをアップデート
     if ([self.delegate respondsToSelector:@selector(updateTaskList)]) {
         [self.delegate updateTaskList];
@@ -196,9 +194,8 @@
     [self.db close];
     
     /// フォルダリストをアップデート
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
-    folderData.tasks = selectArray.count;
-    [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
+    [self countTasks:folderData.folderId];
+
     /// タスクリストをアップデート
     if ([self.delegate respondsToSelector:@selector(deleteTaskListCell:)]) {
         [self.delegate deleteTaskListCell:index];
@@ -238,13 +235,36 @@
     [self.db close];
     
     /// フォルダリストをアップデート
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
-    folderData.tasks = selectArray.count;
-    [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
+    [self countTasks:folderData.folderId];
+
     /// タスクリストをアップデート
     if ([self.delegate respondsToSelector:@selector(updateTaskList)]) {
         [self.delegate updateTaskList];
     }
     return result;
 }
+
+- (BOOL)countTasks:(NSInteger)folderId {
+    NSString *sql = @"SELECT COUNT(*) AS COUNT FROM TaskList WHERE folderId = ?";
+    int taskCount = 0;
+    BOOL result = NO;
+    
+    [self.db open];
+    // resultsはopen後に作る
+    FMResultSet *results = [self.db executeQuery:sql withArgumentsInArray:@[@(folderId)]];
+    while([results next]) {
+        taskCount = [results intForColumn:@"COUNT"];
+    }
+    [self.db close];
+
+    // 数えた数でfolderListを更新
+    NSString* sql2 = [NSString stringWithFormat:@"UPDATE FolderList SET tasks = %d WHERE folderId = %ld", taskCount, (long)folderId];
+    
+    [self.db open];
+    result = [self.db executeUpdate:sql2];
+    [self.db close];
+
+    return result;
+}
+
 @end
