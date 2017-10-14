@@ -29,13 +29,13 @@
 #pragma mark - FolderList Method
 - (BOOL)folderNameInsert:(NSString *)inputFolderName inputDate:(NSDate *)inputDate;
 - (BOOL)updateFolderList:(NSString *)inputFolderName updateDate:(NSDate *)updateDate editFolderData:(FolderListData *)editFolderData;
-- (BOOL)deleteFolderId:(NSInteger)folderId index:(NSIndexPath *)index folderName:(NSString *)folderName;
+- (BOOL)deleteFolderId:(NSInteger)folderId index:(NSIndexPath *)index;
 - (BOOL)deleteAllFolderName;
 - (NSArray<FolderListData *> *)selectFolderList;
 
 #pragma mark - TaskList Method
 - (BOOL)taskNameInsert:(NSString *)inputTaskName inputDate:(NSDate *)inputDate folderData:(FolderListData *)folderData;
-- (NSArray<TaskListData *> *)selectTaskList:(NSString *)folderName;
+- (NSArray<TaskListData *> *)selectTaskList:(NSInteger)folderId;
 - (BOOL)deleteTaskId:(TaskListData *)taskData folderData:(FolderListData *)folderData index:(NSIndexPath *)index;
 - (BOOL)updateTaskList:(NSString *)inputTaskName updateDate:(NSDate *)updateDate taskId:(NSInteger)taskId;
 - (BOOL)deleteAllTaskName:(FolderListData *)folderData;

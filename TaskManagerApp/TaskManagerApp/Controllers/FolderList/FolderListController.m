@@ -49,7 +49,8 @@ static CGFloat const estimatedCellHeight = 80;
 
 - (void)setupTableView {
     UINib *nib = [UINib nibWithNibName:[FolderListCell folderListCellNibName] bundle:nil];
-    [self.folderListTableView registerNib:nib forCellReuseIdentifier:[FolderListCell folderListCellIdentifier]];
+    [self.folderListTableView registerNib:nib
+                   forCellReuseIdentifier:[FolderListCell folderListCellIdentifier]];
 
     self.folderListTableView.rowHeight = UITableViewAutomaticDimension;
     self.folderListTableView.estimatedRowHeight = estimatedCellHeight;
@@ -150,7 +151,7 @@ static CGFloat const estimatedCellHeight = 80;
      handler:^(UIAlertAction *action)
     {
         if (self.inputFolderName.length == 0) {
-            [self.database deleteFolderId:didTapCellData.folderId index:didTapCellIndex folderName:didTapCellData.folderName];
+            [self.database deleteFolderId:didTapCellData.folderId index:didTapCellIndex];
             NSLog(@"編集後のテキストが空だったためフォルダを削除しました。");
         } else {
             NSDate *updateDate = [NSDate date];

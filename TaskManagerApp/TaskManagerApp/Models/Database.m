@@ -51,7 +51,7 @@
 }
 
 - (BOOL)folderNameInsert:(NSString *)inputFolderName inputDate:(NSDate *)inputDate {
-    NSString* sql = @"INSERT INTO FolderList(folderName, updateDate) VALUES(?, ?)";
+    NSString *sql = @"INSERT INTO FolderList(folderName, updateDate) VALUES(?, ?)";
     
     BOOL result = NO;
     
@@ -101,17 +101,17 @@
     return result;
 }
 
-- (BOOL)deleteFolderId:(NSInteger)folderId index:(NSIndexPath *)index folderName:(NSString *)folderName {
+- (BOOL)deleteFolderId:(NSInteger)folderId index:(NSIndexPath *)index {
     
     NSString *sql = @"DELETE FROM FolderList WHERE folderId = ?";
-    NSString *sql2 = @"DELETE FROM TaskList WHERE folderName = ?";
+    NSString *sql2 = @"DELETE FROM TaskList WHERE folderId = ?";
     
     BOOL result = NO;
     
     [self.db open];
     /// 指定の配列を削除
     result = [self.db executeUpdate:sql withArgumentsInArray:@[@(folderId)]];
-    result = [self.db executeUpdate:sql2, folderName];
+    result = [self.db executeUpdate:sql2 withArgumentsInArray:@[@(folderId)]];
     [self.db close];
     
     if ([self.delegate respondsToSelector:@selector(deleteTableViewCell:)]) {
@@ -139,7 +139,7 @@
 
 #pragma mark - TaskList Method
 - (BOOL)createTaskListTable {
-    NSString *sql = @"CREATE TABLE IF NOT EXISTS TaskList (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskName TEXT ,updateTaskDate DATE ,folderName TEXT )";
+    NSString *sql = @"CREATE TABLE IF NOT EXISTS TaskList (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskName TEXT ,updateTaskDate DATE ,folderId INTEGER )";
     
     BOOL result = NO;
     
@@ -150,15 +150,15 @@
 }
 
 - (BOOL)taskNameInsert:(NSString *)inputTaskName inputDate:(NSDate *)inputDate folderData:(FolderListData *)folderData {
-    NSString* sql = @"INSERT INTO TaskList(taskName, updateTaskDate, folderName) VALUES(?, ?, ?)";
+    NSString* sql = @"INSERT INTO TaskList(taskName, updateTaskDate, folderId) VALUES(?, ?, ?)";
     
     BOOL result = NO;
     
     [self.db open];
-    [self.db executeUpdate:sql, inputTaskName, inputDate, folderData.folderName];
+    [self.db executeUpdate:sql, inputTaskName, inputDate, @(folderData.folderId)];
     [self.db close];
     
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderName];
+    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
     folderData.tasks = selectArray.count;
     /// フォルダリストをアップデート
     [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
@@ -170,17 +170,18 @@
     return result;
 }
 
-- (NSArray<TaskListData *> *)selectTaskList:(NSString *)folderName {
-    NSString *sql = @"SELECT * FROM TaskList WHERE folderName = ? ORDER BY updateTaskDate DESC";
-    NSMutableArray<TaskListData *>* resultArray = [@[] mutableCopy];
+- (NSArray<TaskListData *> *)selectTaskList:(NSInteger)folderId {
     
+    NSString *sql = @"SELECT * FROM TaskList WHERE folderId = ? ORDER BY updateTaskDate DESC";
+    NSMutableArray<TaskListData *>* resultArray = [@[] mutableCopy];
     [self.db open];
-    FMResultSet *results = [self.db executeQuery:sql, folderName];
+    FMResultSet *results = [self.db executeQuery:sql withArgumentsInArray:@[@(folderId)]];
     while ([results next]) {
         TaskListData *taskListDataObject = [[TaskListData alloc] initWithFMResultSetTaskListCellData:results];
         [resultArray addObject:taskListDataObject];
     }
     [self.db close];
+    
     return resultArray;
 }
 
@@ -195,7 +196,7 @@
     [self.db close];
     
     /// フォルダリストをアップデート
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderName];
+    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
     folderData.tasks = selectArray.count;
     [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
     /// タスクリストをアップデート
@@ -228,16 +229,16 @@
 
 - (BOOL)deleteAllTaskName:(FolderListData *)folderData {
     
-    NSString *sql = @"DELETE FROM TaskList WHERE folderName = ?";
+    NSString *sql = @"DELETE FROM TaskList WHERE folderId = ?";
     
     BOOL result = NO;
     
     [self.db open];
-    result = [self.db executeUpdate:sql, folderData.folderName];
+    result = [self.db executeUpdate:sql withArgumentsInArray:@[@(folderData.folderId)]];
     [self.db close];
     
     /// フォルダリストをアップデート
-    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderName];
+    NSArray<TaskListData *>* selectArray = [self selectTaskList:folderData.folderId];
     folderData.tasks = selectArray.count;
     [self updateFolderList:folderData.folderName updateDate:folderData.updateDate editFolderData:folderData];
     /// タスクリストをアップデート

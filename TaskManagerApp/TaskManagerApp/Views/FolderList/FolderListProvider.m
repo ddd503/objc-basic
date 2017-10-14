@@ -46,7 +46,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         /// 該当のセルを消す
         Database *database = [[Database alloc] init];
-        [database deleteFolderId:self.folderListDataList[indexPath.row].folderId index:indexPath folderName:self.folderListDataList[indexPath.row].folderName];
+        [database deleteFolderId:self.folderListDataList[indexPath.row].folderId index:indexPath
+         ];
         
         /// 更新をかける
         if ([self.delegate respondsToSelector:@selector(deleteTableViewCell:)]) {

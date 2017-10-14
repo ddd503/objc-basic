@@ -220,14 +220,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - DatabaseDelegate Methods
 - (void)updateTaskList {
-    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderName];
+    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
     [self.taskListTableView reloadData];
 }
 - (void)deleteTaskListCell:(NSIndexPath *)index {
-    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderName];
+    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
