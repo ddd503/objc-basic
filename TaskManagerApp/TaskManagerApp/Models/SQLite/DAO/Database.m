@@ -95,6 +95,9 @@
     [sqliteHelper open];
     /// 指定の配列を削除
     result = [sqliteHelper.db executeUpdate:sql withArgumentsInArray:@[@(folderId)]];
+    [sqliteHelper close];
+    
+    [sqliteHelper open];
     result = [sqliteHelper.db executeUpdate:sql2 withArgumentsInArray:@[@(folderId)]];
     [sqliteHelper close];
     
@@ -115,9 +118,11 @@
     
     [sqliteHelper open];
     result = [sqliteHelper.db executeUpdate:sql];
-    result = [sqliteHelper.db executeUpdate:sql2];
     [sqliteHelper close];
     
+    [sqliteHelper open];
+    result = [sqliteHelper.db executeUpdate:sql2];
+    [sqliteHelper close];
     if ([self.delegate respondsToSelector:@selector(updateView)]) {
         [self.delegate updateView];
     }
