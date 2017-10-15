@@ -13,7 +13,8 @@
 #import "Database.h"
 #import "AleartTextModel.h"
 
-@interface TaskListController () <UITableViewDelegate, UITextFieldDelegate, DatabaseDelegate, TaskListProviderDelegate>
+@interface TaskListController () <UITableViewDelegate, UITextFieldDelegate,
+DatabaseDelegate, TaskListProviderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *taskListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *taskListRightToolbarButton;
 @property (nonatomic) TaskListProvider *provider;

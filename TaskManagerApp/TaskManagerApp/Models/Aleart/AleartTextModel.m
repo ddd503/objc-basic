@@ -10,7 +10,11 @@
 
 @implementation AleartTextModel
 
-- (instancetype)initWithAleartText:(NSString *)title messege:(NSString *)messege textFieldtext:(NSString *)textFieldtext textFieldPlaceFolder:(NSString *)textFieldPlaceFolder{
+- (instancetype)initWithAleartText:(NSString *)title
+                           messege:(NSString *)messege
+                     textFieldtext:(NSString *)textFieldtext
+              textFieldPlaceFolder:(NSString *)textFieldPlaceFolder{
+    
     self = [super init];
     if (self) {
         self.titleText = title;

@@ -67,7 +67,8 @@
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 
-    NSString* sql = @"UPDATE FolderList SET folderName = :FOLDERNAME, updateDate = :UPDATEDATE, tasks = :TASKS WHERE folderId = :FOLDERID";
+    NSString* sql =
+    @"UPDATE FolderList SET folderName = :FOLDERNAME, updateDate = :UPDATEDATE, tasks = :TASKS WHERE folderId = :FOLDERID";
     
     NSDictionary<NSString *, id> *params = @{@"FOLDERNAME": inputFolderName,
                                              @"UPDATEDATE": updateDate,
@@ -205,7 +206,8 @@
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 
-    NSString* sql = @"UPDATE TaskList SET taskName = :TASKNAME, updateTaskDate = :UPDATETASKDATE WHERE taskId = :TASKID";
+    NSString* sql =
+    @"UPDATE TaskList SET taskName = :TASKNAME, updateTaskDate = :UPDATETASKDATE WHERE taskId = :TASKID";
     
     NSDictionary<NSString *, id> *params = @{@"TASKNAME": inputTaskName,
                                              @"UPDATETASKDATE": updateDate,
@@ -263,7 +265,8 @@
     [sqliteHelper close];
 
     // 数えた数でfolderListを更新
-    NSString* sql2 = [NSString stringWithFormat:@"UPDATE FolderList SET tasks = %d WHERE folderId = %ld", taskCount, (long)folderId];
+    NSString* sql2 =
+    [NSString stringWithFormat:@"UPDATE FolderList SET tasks = %d WHERE folderId = %ld", taskCount, (long)folderId];
     
     [sqliteHelper open];
     result = [sqliteHelper.db executeUpdate:sql2];

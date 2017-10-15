@@ -36,7 +36,8 @@
 }
 
 - (BOOL)createFolderListTable {
-    NSString *sql = @"CREATE TABLE IF NOT EXISTS FolderList (folderId INTEGER PRIMARY KEY AUTOINCREMENT, folderName TEXT ,updateDate DATE ,tasks INTEGER )";
+    NSString *sql =
+    @"CREATE TABLE IF NOT EXISTS FolderList (folderId INTEGER PRIMARY KEY AUTOINCREMENT, folderName TEXT ,updateDate DATE ,tasks INTEGER )";
     
     BOOL result = NO;
     
@@ -47,7 +48,8 @@
 }
 
 - (BOOL)createTaskListTable {
-    NSString *sql = @"CREATE TABLE IF NOT EXISTS TaskList (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskName TEXT ,updateTaskDate DATE ,folderId INTEGER )";
+    NSString *sql =
+    @"CREATE TABLE IF NOT EXISTS TaskList (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskName TEXT ,updateTaskDate DATE ,folderId INTEGER )";
     
     BOOL result = NO;
     

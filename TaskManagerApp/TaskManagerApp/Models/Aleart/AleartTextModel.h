@@ -13,5 +13,8 @@
 @property (strong, nonatomic) NSString *messegeText;
 @property (strong, nonatomic) NSString *textFieldText;
 @property (strong, nonatomic) NSString *textFieldPlaceFolder;
-- (instancetype)initWithAleartText:(NSString *)title messege:(NSString *)messege textFieldtext:(NSString *)textFieldtext textFieldPlaceFolder:(NSString *)textFieldPlaceFolder;
+- (instancetype)initWithAleartText:(NSString *)title
+                           messege:(NSString *)messege
+                     textFieldtext:(NSString *)textFieldtext
+              textFieldPlaceFolder:(NSString *)textFieldPlaceFolder;
 @end

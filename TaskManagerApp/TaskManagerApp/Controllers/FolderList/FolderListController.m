@@ -14,7 +14,8 @@
 #import "TaskListController.h"
 #import "AleartTextModel.h"
 
-@interface FolderListController () <UITableViewDelegate, UITextFieldDelegate, DatabaseDelegate, FolderListProviderDelegate>
+@interface FolderListController () <UITableViewDelegate, UITextFieldDelegate,
+DatabaseDelegate, FolderListProviderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *folderListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *folderListRightToolbarButton;
 @property (nonatomic) FolderListProvider *provider;
