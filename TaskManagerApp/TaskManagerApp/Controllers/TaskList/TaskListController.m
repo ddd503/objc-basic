@@ -9,14 +9,18 @@
 #import "TaskListController.h"
 #import "TaskListCell.h"
 #import "TaskListProvider.h"
+#import "TaskListData.h"
 #import "Database.h"
+#import "AleartTextModel.h"
 
 @interface TaskListController () <UITableViewDelegate, UITextFieldDelegate, DatabaseDelegate, TaskListProviderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *taskListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *taskListRightToolbarButton;
 @property (nonatomic) TaskListProvider *provider;
 @property (nonatomic) Database *database;
+@property (nonatomic) TaskListData *didTapCellData;
 @property (strong, nonatomic) NSString *inputTaskName;
+@property (nonatomic) AleartTextModel *aleartTextModel;
 @end
 
 static CGFloat const estimatedCellHeight = 80;
@@ -81,11 +85,30 @@ static CGFloat const estimatedCellHeight = 80;
 }
 
 #pragma mark - Aleart Methods
-- (void)createNewTaskNameAleart {
-    UIAlertController *newTaskNameAleartController =
+- (void)createTaskListAleart:(NSIndexPath *)didTapCellIndex {
+    
+    if (!didTapCellIndex) {
+        self.didTapCellData = nil;
+        self.aleartTextModel =
+        [[AleartTextModel alloc]
+         initWithAleartText:@""
+         messege:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")
+         textFieldtext:@""
+         textFieldPlaceFolder:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")];
+    } else {
+        self.didTapCellData = self.provider.taskListDataList[didTapCellIndex.row];
+        self.aleartTextModel =
+        [[AleartTextModel alloc]
+         initWithAleartText:self.didTapCellData.taskName
+         messege:NSLocalizedString(@"setNewTaskName", @"このタスクの新しい名前を入力してください。")
+         textFieldtext:self.didTapCellData.taskName
+         textFieldPlaceFolder:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")];
+    }
+    
+    UIAlertController *taskNameAleartController =
     [UIAlertController
-     alertControllerWithTitle:@""
-     message:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")
+     alertControllerWithTitle:self.aleartTextModel.titleText
+     message:self.aleartTextModel.messegeText
      preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelButton =
@@ -106,80 +129,37 @@ static CGFloat const estimatedCellHeight = 80;
         if (self.inputTaskName.length == 0)
         {
             return;
-        }
-        NSDate *inputDate = [NSDate date];
-        [self.database taskNameInsert:self.inputTaskName
-                            inputDate:inputDate
-                           folderData:self.didTapFolderData];
-    }];
-    saveButton.enabled = NO;
-    
-    [newTaskNameAleartController addAction:cancelButton];
-    [newTaskNameAleartController addAction:saveButton];
-    [newTaskNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。");
-        textField.delegate = self;
-        [textField addTarget:self
-                      action:@selector(taskListsAlertTextFieldDidChange:)
-            forControlEvents:UIControlEventEditingChanged];
-    }
-     ];
-    
-    [self presentViewController:newTaskNameAleartController animated:true completion:nil];
-}
-
-- (void)createEditTaskNameAleart:(NSIndexPath *)didTapCellIndex {
-    TaskListData *didTapCellData = self.provider.taskListDataList[didTapCellIndex.row];
-    
-    UIAlertController *editTaskNameAleartController =
-    [UIAlertController
-     alertControllerWithTitle:didTapCellData.taskName
-     message:NSLocalizedString(@"setNewTaskName", @"このタスクの新しい名前を入力してください。")
-     preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        self.inputTaskName = @"";
-    }];
-    
-    UIAlertAction *saveButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"save", @"保存")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        if (self.inputTaskName.length == 0)
-        {
-            [self.database deleteTaskId:didTapCellData
-                             folderData:self.didTapFolderData
-                                  index:didTapCellIndex];
-            NSLog(@"編集後のテキストが空だったためタスクを削除しました。");
         } else {
             // update用のメソッドに飛ばす（空なら消す）
             NSDate *updateDate = [NSDate date];
-            [self.database updateTaskList:self.inputTaskName
-                               updateDate:updateDate
-                                   taskId:didTapCellData.taskId];
+            if (!didTapCellIndex) {
+                [self.database taskNameInsert:self.inputTaskName
+                                    inputDate:updateDate
+                                   folderData:self.didTapFolderData];
+            } else {
+                [self.database updateTaskList:self.inputTaskName
+                                   updateDate:updateDate
+                                       taskId:self.didTapCellData.taskId];
+            }
         }
     }];
     
-    [editTaskNameAleartController addAction:cancelButton];
-    [editTaskNameAleartController addAction:saveButton];
-    [editTaskNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。");
-        textField.text = didTapCellData.taskName;
+    [taskNameAleartController addAction:cancelButton];
+    [taskNameAleartController addAction:saveButton];
+    [taskNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = self.aleartTextModel.textFieldPlaceFolder;
+        textField.text = self.aleartTextModel.textFieldText;
         textField.delegate = self;
         [textField addTarget:self
                       action:@selector(taskListsAlertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
+        
+        BOOL checkTextLength = textField.text.length > 0;
+        saveButton.enabled = checkTextLength;
     }
      ];
     
-    [self presentViewController:editTaskNameAleartController animated:true completion:nil];
+    [self presentViewController:taskNameAleartController animated:true completion:nil];
 }
 
 - (void)createTaskListAllDeleteActionSheet {
@@ -218,7 +198,7 @@ static CGFloat const estimatedCellHeight = 80;
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.taskListTableView.editing) {
-        [self createEditTaskNameAleart:indexPath];
+        [self createTaskListAleart:indexPath];
     } else {
         /// 編集中ではない時は選択を解除
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -254,7 +234,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.taskListTableView.editing) {
         [self createTaskListAllDeleteActionSheet];
     } else {
-        [self createNewTaskNameAleart];
+        [self createTaskListAleart:nil];
     }
 }
 

@@ -12,12 +12,15 @@
 #import "FolderListData.h"
 #import "Database.h"
 #import "TaskListController.h"
+#import "AleartTextModel.h"
 
 @interface FolderListController () <UITableViewDelegate, UITextFieldDelegate, DatabaseDelegate, FolderListProviderDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *folderListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *folderListRightToolbarButton;
 @property (nonatomic) FolderListProvider *provider;
 @property (nonatomic) Database *database;
+@property (nonatomic) FolderListData *didTapCellData;
+@property (nonatomic) AleartTextModel *aleartTextModel;
 @property (strong, nonatomic) NSString *inputFolderName;
 @end
 
@@ -75,6 +78,7 @@ static CGFloat const estimatedCellHeight = 80;
     // 表示されているアラートコントローラーをインスタンス化
     UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
     if (alertController) {
+        NSLog(@"走った");
         UITextField *alertTextField = alertController.textFields.firstObject;
         UIAlertAction *saveAction = alertController.actions.lastObject;
         saveAction.enabled = (alertTextField.text.length == 0) ? NO : YES;
@@ -82,59 +86,30 @@ static CGFloat const estimatedCellHeight = 80;
 }
 
 #pragma mark - Aleart Methods
-- (void)createNewFolderNameAleart {
-    UIAlertController *newFolderNameAleartController =
-    [UIAlertController
-     alertControllerWithTitle:@""
-     message:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")
-     preferredStyle:UIAlertControllerStyleAlert];
+- (void)createFolderListAleart:(NSIndexPath *)didTapCellIndex {
     
-    UIAlertAction *cancelButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        self.inputFolderName = @"";
-    }];
-    
-    UIAlertAction *saveButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"save", @"保存")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        if (self.inputFolderName.length == 0)
-        {
-            return;
-        }
-        NSDate *inputDate = [NSDate date];
-        [self.database folderNameInsert:self.inputFolderName inputDate:inputDate];
-    }];
-    saveButton.enabled = NO;
-    
-    [newFolderNameAleartController addAction:cancelButton];
-    [newFolderNameAleartController addAction:saveButton];
-    [newFolderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。");
-        textField.delegate = self;
-        [textField addTarget:self
-                      action:@selector(folderListsAlertTextFieldDidChange:)
-            forControlEvents:UIControlEventEditingChanged];
+    if (!didTapCellIndex) {
+        self.didTapCellData = nil;
+        self.aleartTextModel =
+        [[AleartTextModel alloc]
+         initWithAleartText:@""
+         messege:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")
+         textFieldtext:@""
+         textFieldPlaceFolder:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")];
+    } else {
+        self.didTapCellData = self.provider.folderListDataList[didTapCellIndex.row];
+        self.aleartTextModel =
+        [[AleartTextModel alloc]
+         initWithAleartText:self.didTapCellData.folderName
+         messege:NSLocalizedString(@"setNewFolderName", @"このフォルダの新しい名前を入力してください。")
+         textFieldtext:self.didTapCellData.folderName
+         textFieldPlaceFolder:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")];
     }
-     ];
-    [self presentViewController:newFolderNameAleartController animated:true completion:nil];
     
-}
-
-- (void)createEditFolderNameAleart:(NSIndexPath *)didTapCellIndex {
-    
-    FolderListData *didTapCellData = self.provider.folderListDataList[didTapCellIndex.row];
-    
-    UIAlertController *editFolderNameAleartController =
+    UIAlertController *folderNameAleartController =
     [UIAlertController
-     alertControllerWithTitle:didTapCellData.folderName
-     message:NSLocalizedString(@"setNewFolderName", @"このフォルダの新しい名前を入力してください。")
+     alertControllerWithTitle:self.aleartTextModel.titleText
+     message:self.aleartTextModel.messegeText
      preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *cancelButton =
@@ -153,30 +128,37 @@ static CGFloat const estimatedCellHeight = 80;
      handler:^(UIAlertAction *action)
     {
         if (self.inputFolderName.length == 0) {
-            [self.database deleteFolderId:didTapCellData.folderId index:didTapCellIndex];
-            NSLog(@"編集後のテキストが空だったためフォルダを削除しました。");
+            return;
         } else {
             NSDate *updateDate = [NSDate date];
-            [self.database updateFolderList:self.inputFolderName
-                                 updateDate:updateDate
-                             editFolderData:didTapCellData];
+            if (!didTapCellIndex) {
+                [self.database folderNameInsert:self.inputFolderName
+                                      inputDate:updateDate];
+            } else {
+                [self.database updateFolderList:self.inputFolderName
+                                     updateDate:updateDate
+                                 editFolderData:self.didTapCellData];
+            }
         }
     }];
     
-    [editFolderNameAleartController addAction:cancelButton];
-    [editFolderNameAleartController addAction:saveButton];
+    [folderNameAleartController addAction:cancelButton];
+    [folderNameAleartController addAction:saveButton];
     
-    [editFolderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。");
-        textField.text = didTapCellData.folderName;
+    [folderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = self.aleartTextModel.textFieldPlaceFolder;
+        textField.text = self.aleartTextModel.textFieldText;
         textField.delegate = self;
         [textField addTarget:self
                       action:@selector(folderListsAlertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
+        
+        BOOL checkTextLength = textField.text.length > 0;
+        saveButton.enabled = checkTextLength;
     }
      ];
     
-    [self presentViewController:editFolderNameAleartController animated:true completion:nil];
+    [self presentViewController:folderNameAleartController animated:true completion:nil];
 }
 
 - (void)createFolderListAllDeleteActionSheet {
@@ -215,7 +197,7 @@ static CGFloat const estimatedCellHeight = 80;
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.folderListTableView.editing) {
         
-        [self createEditFolderNameAleart:indexPath];
+        [self createFolderListAleart:indexPath];
         
     } else {
         
@@ -255,7 +237,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.folderListTableView.editing) {
         [self createFolderListAllDeleteActionSheet];
     } else {
-        [self createNewFolderNameAleart];
+        [self createFolderListAleart:nil];
     }
 }
 @end
