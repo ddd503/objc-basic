@@ -22,7 +22,6 @@
 
 @interface Database : NSObject
 @property (weak, nonatomic) id<DatabaseDelegate> delegate;
-@property (nonatomic) FMDatabase *db;
 + (NSString *)dbPath;
 + (NSString *)documentsDirectory;
 

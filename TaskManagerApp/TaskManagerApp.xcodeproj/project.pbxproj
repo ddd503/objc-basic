@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		453513D21F92F98C0081BE8B /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 453513D11F92F98C0081BE8B /* SQLiteHelper.m */; };
 		4546541A1F8A40FE00D4AE67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654191F8A40FE00D4AE67 /* AppDelegate.m */; };
 		454654231F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 454654211F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld */; };
 		454654251F8A40FE00D4AE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454654241F8A40FE00D4AE67 /* Assets.xcassets */; };
@@ -54,6 +55,8 @@
 		23B4659948FA5B6529BCA8C8 /* libPods-TaskManagerApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TaskManagerApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EABFE69C76691FFAC2271E0 /* libPods-TaskManagerAppUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TaskManagerAppUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		410DD39DB8B13CB65185D812 /* Pods-TaskManagerAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerAppUITests/Pods-TaskManagerAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		453513D01F92F98C0081BE8B /* SQLiteHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
+		453513D11F92F98C0081BE8B /* SQLiteHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
 		454654151F8A40FE00D4AE67 /* TaskManagerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManagerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454654181F8A40FE00D4AE67 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		454654191F8A40FE00D4AE67 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -127,6 +130,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		453513CD1F92F9210081BE8B /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				453513CF1F92F9670081BE8B /* Common */,
+				453513CE1F92F95F0081BE8B /* DAO */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
+		453513CE1F92F95F0081BE8B /* DAO */ = {
+			isa = PBXGroup;
+			children = (
+				4546546F1F8A8F6F00D4AE67 /* Database.h */,
+				454654701F8A8F6F00D4AE67 /* Database.m */,
+			);
+			path = DAO;
+			sourceTree = "<group>";
+		};
+		453513CF1F92F9670081BE8B /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				453513D01F92F98C0081BE8B /* SQLiteHelper.h */,
+				453513D11F92F98C0081BE8B /* SQLiteHelper.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		4546540C1F8A40FE00D4AE67 = {
 			isa = PBXGroup;
 			children = (
@@ -181,10 +211,9 @@
 		4546544D1F8A419B00D4AE67 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				453513CD1F92F9210081BE8B /* SQLite */,
 				45CD6DD81F8F87C10044DCAC /* FolderList */,
 				45CD6DD91F8F87D10044DCAC /* TaskList */,
-				4546546F1F8A8F6F00D4AE67 /* Database.h */,
-				454654701F8A8F6F00D4AE67 /* Database.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -594,6 +623,7 @@
 				4546545F1F8A43F700D4AE67 /* FolderListProvider.m in Sources */,
 				454654231F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld in Sources */,
 				454654771F8BB1C100D4AE67 /* TaskListData.m in Sources */,
+				453513D21F92F98C0081BE8B /* SQLiteHelper.m in Sources */,
 				454654531F8A420700D4AE67 /* FolderListController.m in Sources */,
 				454654681F8A449E00D4AE67 /* FolderListCell.m in Sources */,
 				454654621F8A440500D4AE67 /* TaskListProvider.m in Sources */,
