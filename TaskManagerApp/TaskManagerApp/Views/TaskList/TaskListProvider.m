@@ -23,18 +23,23 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TaskListCell *cell = [tableView dequeueReusableCellWithIdentifier:[TaskListCell taskListCellIdentifier] forIndexPath:indexPath];
+    TaskListCell *cell =
+    [tableView dequeueReusableCellWithIdentifier:[TaskListCell taskListCellIdentifier] forIndexPath:indexPath];
     
     [cell setTaskListData:self.taskListDataList[indexPath.row]];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Database *database = [Database new];
-        [database deleteTaskId:self.taskListDataList[indexPath.row] folderData:self.folderData index:indexPath];
+        [database deleteTaskId:self.taskListDataList[indexPath.row]
+                    folderData:self.folderData
+                         index:indexPath];
         
         if ([self.delegate respondsToSelector:@selector(deleteTaskListCell:)]) {
             [self.delegate deleteTaskListCell:indexPath];

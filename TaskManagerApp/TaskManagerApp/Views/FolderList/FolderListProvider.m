@@ -24,12 +24,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FolderListCell *cell = [tableView dequeueReusableCellWithIdentifier:[FolderListCell folderListCellIdentifier] forIndexPath:indexPath];
+    FolderListCell *cell =
+    [tableView dequeueReusableCellWithIdentifier:[FolderListCell folderListCellIdentifier] forIndexPath:indexPath];
     
     [cell setFolderListCellData:self.folderListDataList[indexPath.row]];
     
     /// 降順で日付を取り出しているか確認
-    [self checkdate:indexPath folderName:self.folderListDataList[indexPath.row].folderName date:self.folderListDataList[indexPath.row].updateDate];
+    [self checkdate:indexPath
+         folderName:self.folderListDataList[indexPath.row].folderName
+               date:self.folderListDataList[indexPath.row].updateDate];
     
     return cell;
 }
@@ -41,7 +44,9 @@
     NSLog(@"indexPath.row:%ld,フォルダ名:%@,更新時間:%@", (long)index.row, folderName, dateText);
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         /// 該当のセルを消す

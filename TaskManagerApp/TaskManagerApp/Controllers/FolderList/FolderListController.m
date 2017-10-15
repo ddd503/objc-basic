@@ -118,7 +118,9 @@ static CGFloat const estimatedCellHeight = 80;
     [newFolderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。");
         textField.delegate = self;
-        [textField addTarget:self action:@selector(folderListsAlertTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        [textField addTarget:self
+                      action:@selector(folderListsAlertTextFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
     }
      ];
     [self presentViewController:newFolderNameAleartController animated:true completion:nil];
@@ -155,7 +157,9 @@ static CGFloat const estimatedCellHeight = 80;
             NSLog(@"編集後のテキストが空だったためフォルダを削除しました。");
         } else {
             NSDate *updateDate = [NSDate date];
-            [self.database updateFolderList:self.inputFolderName updateDate:updateDate editFolderData:didTapCellData];
+            [self.database updateFolderList:self.inputFolderName
+                                 updateDate:updateDate
+                             editFolderData:didTapCellData];
         }
     }];
     
@@ -166,9 +170,12 @@ static CGFloat const estimatedCellHeight = 80;
         textField.placeholder = NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。");
         textField.text = didTapCellData.folderName;
         textField.delegate = self;
-        [textField addTarget:self action:@selector(folderListsAlertTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        [textField addTarget:self
+                      action:@selector(folderListsAlertTextFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
     }
      ];
+    
     [self presentViewController:editFolderNameAleartController animated:true completion:nil];
 }
 
@@ -207,10 +214,16 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.folderListTableView.editing) {
+        
         [self createEditFolderNameAleart:indexPath];
+        
     } else {
-        UIStoryboard *taskListStoryboard = [UIStoryboard storyboardWithName:moveStoryboardName bundle:nil];
-        TaskListController *taskListController = [taskListStoryboard instantiateInitialViewController];
+        
+        UIStoryboard *taskListStoryboard =
+        [UIStoryboard storyboardWithName:moveStoryboardName bundle:nil];
+        
+        TaskListController *taskListController =
+        [taskListStoryboard instantiateInitialViewController];
         
         taskListController.didTapFolderData = self.provider.folderListDataList[indexPath.row];
         

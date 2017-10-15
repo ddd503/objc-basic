@@ -53,14 +53,17 @@
     [sqliteHelper open];
     FMResultSet *results = [sqliteHelper.db executeQuery:sql];
     while ([results next]) {
-        FolderListData *folderListDataObject = [[FolderListData alloc] initWithFMResultSetFolderListCellData:results];
+        FolderListData *folderListDataObject =
+        [[FolderListData alloc] initWithFMResultSetFolderListCellData:results];
         [resultArray addObject:folderListDataObject];
     }
     [sqliteHelper close];
     return resultArray;
 }
 
-- (BOOL)updateFolderList:(NSString *)inputFolderName updateDate:(NSDate *)updateDate editFolderData:(FolderListData *)editFolderData {
+- (BOOL)updateFolderList:(NSString *)inputFolderName
+              updateDate:(NSDate *)updateDate
+          editFolderData:(FolderListData *)editFolderData {
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 
@@ -131,7 +134,9 @@
 
 #pragma mark - TaskList Method
 
-- (BOOL)taskNameInsert:(NSString *)inputTaskName inputDate:(NSDate *)inputDate folderData:(FolderListData *)folderData {
+- (BOOL)taskNameInsert:(NSString *)inputTaskName
+             inputDate:(NSDate *)inputDate
+            folderData:(FolderListData *)folderData {
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 
@@ -170,7 +175,9 @@
     return resultArray;
 }
 
-- (BOOL)deleteTaskId:(TaskListData *)taskData folderData:(FolderListData *)folderData index:(NSIndexPath *)index {
+- (BOOL)deleteTaskId:(TaskListData *)taskData
+          folderData:(FolderListData *)folderData
+               index:(NSIndexPath *)index {
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 
@@ -192,7 +199,9 @@
     return result;
 }
 
-- (BOOL)updateTaskList:(NSString *)inputTaskName updateDate:(NSDate *)updateDate taskId:(NSInteger)taskId {
+- (BOOL)updateTaskList:(NSString *)inputTaskName
+            updateDate:(NSDate *)updateDate
+                taskId:(NSInteger)taskId {
     
     SQLiteHelper *sqliteHelper = [SQLiteHelper new];
 

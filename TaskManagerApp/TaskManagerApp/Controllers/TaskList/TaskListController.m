@@ -48,7 +48,8 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)setupTableView {
     
     UINib *nib = [UINib nibWithNibName:[TaskListCell taskListCellNibName] bundle:nil];
-    [self.taskListTableView registerNib:nib forCellReuseIdentifier:[TaskListCell taskListCellIdentifier]];
+    [self.taskListTableView registerNib:nib
+                 forCellReuseIdentifier:[TaskListCell taskListCellIdentifier]];
     
     self.taskListTableView.rowHeight = UITableViewAutomaticDimension;
     self.taskListTableView.estimatedRowHeight = estimatedCellHeight;
@@ -107,7 +108,9 @@ static CGFloat const estimatedCellHeight = 80;
             return;
         }
         NSDate *inputDate = [NSDate date];
-        [self.database taskNameInsert:self.inputTaskName inputDate:inputDate folderData:self.didTapFolderData];
+        [self.database taskNameInsert:self.inputTaskName
+                            inputDate:inputDate
+                           folderData:self.didTapFolderData];
     }];
     saveButton.enabled = NO;
     
@@ -116,9 +119,12 @@ static CGFloat const estimatedCellHeight = 80;
     [newTaskNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.placeholder = NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。");
         textField.delegate = self;
-        [textField addTarget:self action:@selector(taskListsAlertTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        [textField addTarget:self
+                      action:@selector(taskListsAlertTextFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
     }
      ];
+    
     [self presentViewController:newTaskNameAleartController animated:true completion:nil];
 }
 
@@ -148,12 +154,16 @@ static CGFloat const estimatedCellHeight = 80;
     {
         if (self.inputTaskName.length == 0)
         {
-            [self.database deleteTaskId:didTapCellData folderData:self.didTapFolderData index:didTapCellIndex];
+            [self.database deleteTaskId:didTapCellData
+                             folderData:self.didTapFolderData
+                                  index:didTapCellIndex];
             NSLog(@"編集後のテキストが空だったためタスクを削除しました。");
         } else {
             // update用のメソッドに飛ばす（空なら消す）
             NSDate *updateDate = [NSDate date];
-            [self.database updateTaskList:self.inputTaskName updateDate:updateDate taskId:didTapCellData.taskId];
+            [self.database updateTaskList:self.inputTaskName
+                               updateDate:updateDate
+                                   taskId:didTapCellData.taskId];
         }
     }];
     
@@ -163,7 +173,9 @@ static CGFloat const estimatedCellHeight = 80;
         textField.placeholder = NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。");
         textField.text = didTapCellData.taskName;
         textField.delegate = self;
-        [textField addTarget:self action:@selector(taskListsAlertTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        [textField addTarget:self
+                      action:@selector(taskListsAlertTextFieldDidChange:)
+            forControlEvents:UIControlEventEditingChanged];
     }
      ];
     
@@ -220,18 +232,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - DatabaseDelegate Methods
 - (void)updateTaskList {
-    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
+    self.provider.taskListDataList =
+    [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
     [self.taskListTableView reloadData];
 }
 - (void)deleteTaskListCell:(NSIndexPath *)index {
-    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
+    self.provider.taskListDataList =
+    [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
-    [self.taskListTableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.taskListTableView deleteRowsAtIndexPaths:@[index]
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Action Methods
