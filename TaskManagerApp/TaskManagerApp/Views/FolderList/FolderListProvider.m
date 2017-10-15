@@ -35,7 +35,7 @@
 }
 
 - (void)checkdate:(NSIndexPath *)index folderName:(NSString *)folderName date:(NSDate *)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     NSString *dateText = [formatter stringFromDate:date];
     NSLog(@"indexPath.row:%ld,フォルダ名:%@,更新時間:%@", (long)index.row, folderName, dateText);
@@ -45,7 +45,7 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         /// 該当のセルを消す
-        Database *database = [[Database alloc] init];
+        Database *database = [Database new];
         [database deleteFolderId:self.folderListDataList[indexPath.row].folderId index:indexPath
          ];
         

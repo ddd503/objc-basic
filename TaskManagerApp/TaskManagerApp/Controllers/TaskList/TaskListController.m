@@ -42,7 +42,7 @@ static CGFloat const estimatedCellHeight = 80;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"編集");
     
-    self.database = [[Database alloc] init];
+    self.database = [Database new];
     self.database.delegate = self;
 }
 - (void)setupTableView {
@@ -53,7 +53,7 @@ static CGFloat const estimatedCellHeight = 80;
     self.taskListTableView.rowHeight = UITableViewAutomaticDimension;
     self.taskListTableView.estimatedRowHeight = estimatedCellHeight;
     
-    self.provider = [[TaskListProvider alloc] init];
+    self.provider = [TaskListProvider new];
     self.provider.delegate = self;
     self.provider.folderData = self.didTapFolderData;
     

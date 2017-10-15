@@ -13,7 +13,7 @@ static NSString *const formatterText = @"yyyy/MM/dd";
 @implementation DateHelper
 
 + (NSString *)returnDateText:(NSDate *)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:formatterText];
     NSString *dateText = [formatter stringFromDate:date];
     return dateText;

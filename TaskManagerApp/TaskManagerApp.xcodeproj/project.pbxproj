@@ -185,10 +185,10 @@
 		454654171F8A40FE00D4AE67 /* TaskManagerApp */ = {
 			isa = PBXGroup;
 			children = (
-				45B6DA891F9366A80014CBE9 /* Helper */,
 				4546544D1F8A419B00D4AE67 /* Models */,
 				4546544E1F8A41A200D4AE67 /* Views */,
 				4546544F1F8A41A800D4AE67 /* Controllers */,
+				45B6DA891F9366A80014CBE9 /* Helper */,
 				454654501F8A41B000D4AE67 /* Others */,
 			);
 			path = TaskManagerApp;

@@ -33,7 +33,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Database *database = [[Database alloc] init];
+        Database *database = [Database new];
         [database deleteTaskId:self.taskListDataList[indexPath.row] folderData:self.folderData index:indexPath];
         
         if ([self.delegate respondsToSelector:@selector(deleteTaskListCell:)]) {
