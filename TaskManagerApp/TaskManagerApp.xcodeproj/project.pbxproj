@@ -28,6 +28,7 @@
 		454654711F8A8F6F00D4AE67 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654701F8A8F6F00D4AE67 /* Database.m */; };
 		454654741F8B224900D4AE67 /* FolderListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654731F8B224900D4AE67 /* FolderListData.m */; };
 		454654771F8BB1C100D4AE67 /* TaskListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654761F8BB1C100D4AE67 /* TaskListData.m */; };
+		45B6DA8C1F9366C40014CBE9 /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B6DA8B1F9366C40014CBE9 /* DateHelper.m */; };
 		45C468FB1F8CB6D200DDE2EA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45C468FD1F8CB6D200DDE2EA /* Localizable.strings */; };
 		B00D478D9F41E4038700B414 /* libPods-TaskManagerAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EABFE69C76691FFAC2271E0 /* libPods-TaskManagerAppUITests.a */; };
 		BFF210228F1BCC526863306C /* libPods-TaskManagerAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2D44B932964D3FE74E9257 /* libPods-TaskManagerAppTests.a */; };
@@ -93,6 +94,8 @@
 		454654731F8B224900D4AE67 /* FolderListData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FolderListData.m; sourceTree = "<group>"; };
 		454654751F8BB1C100D4AE67 /* TaskListData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TaskListData.h; sourceTree = "<group>"; };
 		454654761F8BB1C100D4AE67 /* TaskListData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskListData.m; sourceTree = "<group>"; };
+		45B6DA8A1F9366C40014CBE9 /* DateHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateHelper.h; sourceTree = "<group>"; };
+		45B6DA8B1F9366C40014CBE9 /* DateHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateHelper.m; sourceTree = "<group>"; };
 		45C468FE1F8CC67500DDE2EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F57824341FCBF805779C446 /* Pods-TaskManagerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerApp/Pods-TaskManagerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		62068427A5F9E3732B6A8859 /* Pods-TaskManagerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerApp/Pods-TaskManagerApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +185,7 @@
 		454654171F8A40FE00D4AE67 /* TaskManagerApp */ = {
 			isa = PBXGroup;
 			children = (
+				45B6DA891F9366A80014CBE9 /* Helper */,
 				4546544D1F8A419B00D4AE67 /* Models */,
 				4546544E1F8A41A200D4AE67 /* Views */,
 				4546544F1F8A41A800D4AE67 /* Controllers */,
@@ -293,6 +297,15 @@
 				454654671F8A449E00D4AE67 /* FolderListCell.xib */,
 			);
 			path = FolderList;
+			sourceTree = "<group>";
+		};
+		45B6DA891F9366A80014CBE9 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				45B6DA8A1F9366C40014CBE9 /* DateHelper.h */,
+				45B6DA8B1F9366C40014CBE9 /* DateHelper.m */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		45CD6DD81F8F87C10044DCAC /* FolderList */ = {
@@ -631,6 +644,7 @@
 				454654711F8A8F6F00D4AE67 /* Database.m in Sources */,
 				454654741F8B224900D4AE67 /* FolderListData.m in Sources */,
 				4546545C1F8A439500D4AE67 /* TaskListController.m in Sources */,
+				45B6DA8C1F9366C40014CBE9 /* DateHelper.m in Sources */,
 				4546541A1F8A40FE00D4AE67 /* AppDelegate.m in Sources */,
 				4546546D1F8A44B500D4AE67 /* TaskListCell.m in Sources */,
 			);

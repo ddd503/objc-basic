@@ -7,6 +7,7 @@
 //
 
 #import "TaskListCell.h"
+#import "DateHelper.h"
 
 @interface TaskListCell ()
 @end
@@ -25,14 +26,7 @@ NSString *const taskListCellIdentifier = @"TaskListCell";
 
 - (void)setTaskListData:(TaskListData *)taskListData {
     self.taskNameLabel.text = taskListData.taskName;
-    self.updateTaskDateLabel.text = [self chengeDateData:taskListData.updateTaskDate];
-}
-
-- (NSString *)chengeDateData:(NSDate *)date {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSString *dateText = [formatter stringFromDate:date];
-    return dateText;
+    self.updateTaskDateLabel.text = [DateHelper returnDateText:taskListData.updateTaskDate];
 }
 
 @end
