@@ -150,6 +150,7 @@ static CGFloat const estimatedCellHeight = 80;
         textField.placeholder = self.aleartTextModel.textFieldPlaceFolder;
         textField.text = self.aleartTextModel.textFieldText;
         textField.delegate = self;
+        // プロパティとしてUIAleartControllerを用意していないため、NSNotificationCenterは使用しない。
         [textField addTarget:self
                       action:@selector(folderListsAlertTextFieldDidChange:)
             forControlEvents:UIControlEventEditingChanged];
