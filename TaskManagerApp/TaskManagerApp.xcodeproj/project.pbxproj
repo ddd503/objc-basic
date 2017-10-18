@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		453513D21F92F98C0081BE8B /* SQLiteHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 453513D11F92F98C0081BE8B /* SQLiteHelper.m */; };
+		453E82171F96E789002A3991 /* AleartHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 453E82161F96E789002A3991 /* AleartHelper.m */; };
 		4546541A1F8A40FE00D4AE67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654191F8A40FE00D4AE67 /* AppDelegate.m */; };
 		454654231F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 454654211F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld */; };
 		454654251F8A40FE00D4AE67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454654241F8A40FE00D4AE67 /* Assets.xcassets */; };
@@ -29,7 +30,6 @@
 		454654741F8B224900D4AE67 /* FolderListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654731F8B224900D4AE67 /* FolderListData.m */; };
 		454654771F8BB1C100D4AE67 /* TaskListData.m in Sources */ = {isa = PBXBuildFile; fileRef = 454654761F8BB1C100D4AE67 /* TaskListData.m */; };
 		45B6DA8C1F9366C40014CBE9 /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B6DA8B1F9366C40014CBE9 /* DateHelper.m */; };
-		45B6DA901F9376C40014CBE9 /* AleartTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B6DA8F1F9376C40014CBE9 /* AleartTextModel.m */; };
 		45C468FB1F8CB6D200DDE2EA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45C468FD1F8CB6D200DDE2EA /* Localizable.strings */; };
 		B00D478D9F41E4038700B414 /* libPods-TaskManagerAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EABFE69C76691FFAC2271E0 /* libPods-TaskManagerAppUITests.a */; };
 		BFF210228F1BCC526863306C /* libPods-TaskManagerAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E2D44B932964D3FE74E9257 /* libPods-TaskManagerAppTests.a */; };
@@ -59,6 +59,8 @@
 		410DD39DB8B13CB65185D812 /* Pods-TaskManagerAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerAppUITests/Pods-TaskManagerAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		453513D01F92F98C0081BE8B /* SQLiteHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SQLiteHelper.h; sourceTree = "<group>"; };
 		453513D11F92F98C0081BE8B /* SQLiteHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SQLiteHelper.m; sourceTree = "<group>"; };
+		453E82151F96E789002A3991 /* AleartHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AleartHelper.h; sourceTree = "<group>"; };
+		453E82161F96E789002A3991 /* AleartHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AleartHelper.m; sourceTree = "<group>"; };
 		454654151F8A40FE00D4AE67 /* TaskManagerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManagerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454654181F8A40FE00D4AE67 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		454654191F8A40FE00D4AE67 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,8 +99,6 @@
 		454654761F8BB1C100D4AE67 /* TaskListData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskListData.m; sourceTree = "<group>"; };
 		45B6DA8A1F9366C40014CBE9 /* DateHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DateHelper.h; sourceTree = "<group>"; };
 		45B6DA8B1F9366C40014CBE9 /* DateHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DateHelper.m; sourceTree = "<group>"; };
-		45B6DA8E1F9376C40014CBE9 /* AleartTextModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AleartTextModel.h; sourceTree = "<group>"; };
-		45B6DA8F1F9376C40014CBE9 /* AleartTextModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AleartTextModel.m; sourceTree = "<group>"; };
 		45C468FE1F8CC67500DDE2EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4F57824341FCBF805779C446 /* Pods-TaskManagerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerApp/Pods-TaskManagerApp.debug.xcconfig"; sourceTree = "<group>"; };
 		62068427A5F9E3732B6A8859 /* Pods-TaskManagerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TaskManagerApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-TaskManagerApp/Pods-TaskManagerApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -221,7 +221,6 @@
 				453513CD1F92F9210081BE8B /* SQLite */,
 				45CD6DD81F8F87C10044DCAC /* FolderList */,
 				45CD6DD91F8F87D10044DCAC /* TaskList */,
-				45B6DA8D1F9376840014CBE9 /* Aleart */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -308,17 +307,10 @@
 			children = (
 				45B6DA8A1F9366C40014CBE9 /* DateHelper.h */,
 				45B6DA8B1F9366C40014CBE9 /* DateHelper.m */,
+				453E82151F96E789002A3991 /* AleartHelper.h */,
+				453E82161F96E789002A3991 /* AleartHelper.m */,
 			);
 			path = Helper;
-			sourceTree = "<group>";
-		};
-		45B6DA8D1F9376840014CBE9 /* Aleart */ = {
-			isa = PBXGroup;
-			children = (
-				45B6DA8E1F9376C40014CBE9 /* AleartTextModel.h */,
-				45B6DA8F1F9376C40014CBE9 /* AleartTextModel.m */,
-			);
-			path = Aleart;
 			sourceTree = "<group>";
 		};
 		45CD6DD81F8F87C10044DCAC /* FolderList */ = {
@@ -648,6 +640,7 @@
 			files = (
 				4546545F1F8A43F700D4AE67 /* FolderListProvider.m in Sources */,
 				454654231F8A40FE00D4AE67 /* TaskManagerApp.xcdatamodeld in Sources */,
+				453E82171F96E789002A3991 /* AleartHelper.m in Sources */,
 				454654771F8BB1C100D4AE67 /* TaskListData.m in Sources */,
 				453513D21F92F98C0081BE8B /* SQLiteHelper.m in Sources */,
 				454654531F8A420700D4AE67 /* FolderListController.m in Sources */,
@@ -657,7 +650,6 @@
 				454654711F8A8F6F00D4AE67 /* Database.m in Sources */,
 				454654741F8B224900D4AE67 /* FolderListData.m in Sources */,
 				4546545C1F8A439500D4AE67 /* TaskListController.m in Sources */,
-				45B6DA901F9376C40014CBE9 /* AleartTextModel.m in Sources */,
 				45B6DA8C1F9366C40014CBE9 /* DateHelper.m in Sources */,
 				4546541A1F8A40FE00D4AE67 /* AppDelegate.m in Sources */,
 				4546546D1F8A44B500D4AE67 /* TaskListCell.m in Sources */,

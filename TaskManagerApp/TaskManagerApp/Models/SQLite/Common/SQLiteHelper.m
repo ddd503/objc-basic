@@ -14,7 +14,6 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        NSLog(@"init");
         self.db = [[FMDatabase alloc] initWithPath:[Database dbPath]];
 #if DEBUG
         /// デバッグ時のみSQLiteの実行をトレースする

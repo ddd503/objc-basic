@@ -12,16 +12,16 @@
 #import "FolderListData.h"
 #import "Database.h"
 #import "TaskListController.h"
-#import "AleartTextModel.h"
+#import "AleartHelper.h"
 
 @interface FolderListController () <UITableViewDelegate, UITextFieldDelegate,
-DatabaseDelegate, FolderListProviderDelegate>
+DatabaseDelegate, FolderListProviderDelegate, AlertHelperDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *folderListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *folderListRightToolbarButton;
 @property (nonatomic) FolderListProvider *provider;
 @property (nonatomic) Database *database;
 @property (nonatomic) FolderListData *didTapCellData;
-@property (nonatomic) AleartTextModel *aleartTextModel;
+@property (nonatomic) AleartHelper *alearHelper;
 @property (strong, nonatomic) NSString *inputFolderName;
 @end
 
@@ -45,7 +45,7 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)setup {
     [self setupTableView];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"編集");
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
     // テーブル作成とデリゲートオン
     self.database = [Database new];
     self.database.delegate = self;
@@ -67,124 +67,28 @@ static CGFloat const estimatedCellHeight = 80;
 
 - (void)reloadFolderListToolbar:(BOOL)editing {
     if (editing) {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"完了");
-        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"すべて削除")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"hoge");
+        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"hoge")];
     } else {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"編集");
-        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"newFolder", @"新規フォルダ")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
+        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"newFolder", @"hoge")];
     }
 }
 
-- (void)folderListsAlertTextFieldDidChange:(UITextField *)sender {
-    // 表示されているアラートコントローラーをインスタンス化
-    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
-    if (alertController) {
-        NSLog(@"走った");
-        UITextField *alertTextField = alertController.textFields.firstObject;
-        UIAlertAction *saveAction = alertController.actions.lastObject;
-        saveAction.enabled = (alertTextField.text.length == 0) ? NO : YES;
-    }
+#pragma mark - AleartHelperDelegate Methods
+- (void)createFolder:(NSString *) inputText {
+    // insert
+    [self.database folderNameInsert:inputText inputDate:[NSDate date]];
 }
-
-#pragma mark - Aleart Methods
-- (void)createFolderListAleart:(NSIndexPath *)didTapCellIndex {
-    
-    if (!didTapCellIndex) {
-        self.didTapCellData = nil;
-        self.aleartTextModel =
-        [[AleartTextModel alloc]
-         initWithAleartText:@""
-         messege:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")
-         textFieldtext:@""
-         textFieldPlaceFolder:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")];
-    } else {
-        self.didTapCellData = self.provider.folderListDataList[didTapCellIndex.row];
-        self.aleartTextModel =
-        [[AleartTextModel alloc]
-         initWithAleartText:self.didTapCellData.folderName
-         messege:NSLocalizedString(@"setNewFolderName", @"このフォルダの新しい名前を入力してください。")
-         textFieldtext:self.didTapCellData.folderName
-         textFieldPlaceFolder:NSLocalizedString(@"setFolderName", @"このフォルダの名前を入力してください。")];
-    }
-    
-    UIAlertController *folderNameAleartController =
-    [UIAlertController
-     alertControllerWithTitle:self.aleartTextModel.titleText
-     message:self.aleartTextModel.messegeText
-     preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        self.inputFolderName = @"";
-    }];
-    
-    UIAlertAction *saveButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"save", @"保存")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        if (self.inputFolderName.length == 0) {
-            return;
-        } else {
-            NSDate *updateDate = [NSDate date];
-            if (!didTapCellIndex) {
-                [self.database folderNameInsert:self.inputFolderName
-                                      inputDate:updateDate];
-            } else {
-                [self.database updateFolderList:self.inputFolderName
-                                     updateDate:updateDate
-                                 editFolderData:self.didTapCellData];
-            }
-        }
-    }];
-    
-    [folderNameAleartController addAction:cancelButton];
-    [folderNameAleartController addAction:saveButton];
-    
-    [folderNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = self.aleartTextModel.textFieldPlaceFolder;
-        textField.text = self.aleartTextModel.textFieldText;
-        textField.delegate = self;
-        // プロパティとしてUIAleartControllerを用意していないため、NSNotificationCenterは使用しない。
-        [textField addTarget:self
-                      action:@selector(folderListsAlertTextFieldDidChange:)
-            forControlEvents:UIControlEventEditingChanged];
-        
-        BOOL checkTextLength = textField.text.length > 0;
-        saveButton.enabled = checkTextLength;
-    }
-     ];
-    
-    [self presentViewController:folderNameAleartController animated:true completion:nil];
+- (void)editFolder:(NSString *) inputText {
+    // update
+    [self.database updateFolderList:inputText
+                         updateDate:[NSDate date]
+                     editFolderData:self.didTapCellData];
 }
-
-- (void)createFolderListAllDeleteActionSheet {
-    UIAlertController *folderListAllDeleteActionSheet =
-    [UIAlertController alertControllerWithTitle:nil
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", @"削除")
-                             style:UIAlertActionStyleDestructive
-                           handler:^(UIAlertAction * action) {
-                               [self.database deleteAllFolderName];
-                           }];
-    
-    UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-                             style:UIAlertActionStyleCancel
-                           handler:nil];
-    
-    [folderListAllDeleteActionSheet addAction:deleteAction];
-    [folderListAllDeleteActionSheet addAction:cancelAction];
-    
-    [self presentViewController:folderListAllDeleteActionSheet animated:true completion:nil];
+- (void)deleteAllFolder {
+    // allDelete
+    [self.database deleteAllFolderName];
 }
 
 #pragma mark - TableViewDelegate Methods
@@ -198,16 +102,23 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.folderListTableView.editing) {
+        // 編集モード時のタップ
+        self.didTapCellData = self.provider.folderListDataList[indexPath.row];
         
-        [self createFolderListAleart:indexPath];
+        self.alearHelper = [AleartHelper new];
+        self.alearHelper.delegate = self;
         
+        UIAlertController *editFolderAleart = [self.alearHelper createEditFolderAleart:self.didTapCellData.folderName
+                                                                           placeholder:NSLocalizedString(@"setFolderName", @"hoge")
+                                                                            alertTitle:self.didTapCellData.folderName
+                                                                          alertMessage:NSLocalizedString(@"setNewFolderName", @"hoge")];
+        [self presentViewController:editFolderAleart animated:YES completion:nil];
+
     } else {
         
-        UIStoryboard *taskListStoryboard =
-        [UIStoryboard storyboardWithName:moveStoryboardName bundle:nil];
+        UIStoryboard *taskListStoryboard = [UIStoryboard storyboardWithName:moveStoryboardName bundle:nil];
         
-        TaskListController *taskListController =
-        [taskListStoryboard instantiateInitialViewController];
+        TaskListController *taskListController = [taskListStoryboard instantiateInitialViewController];
         
         taskListController.didTapFolderData = self.provider.folderListDataList[indexPath.row];
         
@@ -236,10 +147,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - Action Methods
 - (IBAction)editFolderList:(id)sender {
+    
+    self.alearHelper = [AleartHelper new];
+    self.alearHelper.delegate = self;
+    
     if (self.folderListTableView.editing) {
-        [self createFolderListAllDeleteActionSheet];
+        UIAlertController *allDeleteFolderActionSheet = [self.alearHelper createAllDeleteFolderActionSheet];
+        [self presentViewController:allDeleteFolderActionSheet animated:YES completion:nil];
+        
     } else {
-        [self createFolderListAleart:nil];
+        UIAlertController *newFolderAleart = [self.alearHelper createNewFolderAleart:@""
+                                                                         placeholder:NSLocalizedString(@"setFolderName", @"hoge")
+                                                                          alertTitle:@""
+                                                                        alertMessage:NSLocalizedString(@"setFolderName", @"hoge")];
+        
+        [self presentViewController:newFolderAleart animated:YES completion:nil];
     }
 }
 @end

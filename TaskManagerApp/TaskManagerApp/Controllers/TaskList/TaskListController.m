@@ -11,17 +11,17 @@
 #import "TaskListProvider.h"
 #import "TaskListData.h"
 #import "Database.h"
-#import "AleartTextModel.h"
+#import "AleartHelper.h"
 
 @interface TaskListController () <UITableViewDelegate, UITextFieldDelegate,
-DatabaseDelegate, TaskListProviderDelegate>
+DatabaseDelegate, TaskListProviderDelegate, AlertHelperDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *taskListTableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *taskListRightToolbarButton;
 @property (nonatomic) TaskListProvider *provider;
 @property (nonatomic) Database *database;
 @property (nonatomic) TaskListData *didTapCellData;
+@property (nonatomic) AleartHelper *alearHelper;
 @property (strong, nonatomic) NSString *inputTaskName;
-@property (nonatomic) AleartTextModel *aleartTextModel;
 @end
 
 static CGFloat const estimatedCellHeight = 80;
@@ -45,7 +45,7 @@ static CGFloat const estimatedCellHeight = 80;
     self.navigationItem.title = self.didTapFolderData.folderName;
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"編集");
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
     
     self.database = [Database new];
     self.database.delegate = self;
@@ -68,123 +68,26 @@ static CGFloat const estimatedCellHeight = 80;
 }
 - (void)reloadTaskListToolbar:(BOOL)editing {
     if (editing) {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"完了");
-        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"すべて削除")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"hoge");
+        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"hoge")];
     } else {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"編集");
-        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"addTask", @"タスク追加")];
-    }
-}
-- (void)taskListsAlertTextFieldDidChange:(UITextField *)sender {
-    // 表示されているアラートコントローラーをインスタンス化
-    UIAlertController *alertController = (UIAlertController *)self.presentedViewController;
-    if (alertController) {
-        UITextField *alertTextField = alertController.textFields.firstObject;
-        UIAlertAction *saveAction = alertController.actions.lastObject;
-        saveAction.enabled = (alertTextField.text.length == 0) ? NO : YES;
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
+        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"addTask", @"hoge")];
     }
 }
 
-#pragma mark - Aleart Methods
-- (void)createTaskListAleart:(NSIndexPath *)didTapCellIndex {
-    
-    if (!didTapCellIndex) {
-        self.didTapCellData = nil;
-        self.aleartTextModel =
-        [[AleartTextModel alloc]
-         initWithAleartText:@""
-         messege:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")
-         textFieldtext:@""
-         textFieldPlaceFolder:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")];
-    } else {
-        self.didTapCellData = self.provider.taskListDataList[didTapCellIndex.row];
-        self.aleartTextModel =
-        [[AleartTextModel alloc]
-         initWithAleartText:self.didTapCellData.taskName
-         messege:NSLocalizedString(@"setNewTaskName", @"このタスクの新しい名前を入力してください。")
-         textFieldtext:self.didTapCellData.taskName
-         textFieldPlaceFolder:NSLocalizedString(@"setTaskName", @"このタスクの名前を入力してください。")];
-    }
-    
-    UIAlertController *taskNameAleartController =
-    [UIAlertController
-     alertControllerWithTitle:self.aleartTextModel.titleText
-     message:self.aleartTextModel.messegeText
-     preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancelButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        self.inputTaskName = @"";
-    }];
-    
-    UIAlertAction *saveButton =
-    [UIAlertAction
-     actionWithTitle:NSLocalizedString(@"save", @"保存")
-     style:UIAlertActionStyleDefault
-     handler:^(UIAlertAction *action)
-    {
-        if (self.inputTaskName.length == 0)
-        {
-            return;
-        } else {
-            // update用のメソッドに飛ばす（空なら消す）
-            NSDate *updateDate = [NSDate date];
-            if (!didTapCellIndex) {
-                [self.database taskNameInsert:self.inputTaskName
-                                    inputDate:updateDate
-                                   folderData:self.didTapFolderData];
-            } else {
-                [self.database updateTaskList:self.inputTaskName
-                                   updateDate:updateDate
-                                       taskId:self.didTapCellData.taskId];
-            }
-        }
-    }];
-    
-    [taskNameAleartController addAction:cancelButton];
-    [taskNameAleartController addAction:saveButton];
-    [taskNameAleartController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.placeholder = self.aleartTextModel.textFieldPlaceFolder;
-        textField.text = self.aleartTextModel.textFieldText;
-        textField.delegate = self;
-        [textField addTarget:self
-                      action:@selector(taskListsAlertTextFieldDidChange:)
-            forControlEvents:UIControlEventEditingChanged];
-        
-        BOOL checkTextLength = textField.text.length > 0;
-        saveButton.enabled = checkTextLength;
-    }
-     ];
-    
-    [self presentViewController:taskNameAleartController animated:true completion:nil];
+#pragma mark - AleartHelperDelegate Methods
+- (void)createTask:(NSString *) inputText {
+    // insert
+    [self.database taskNameInsert:inputText inputDate:[NSDate date] folderData:self.didTapFolderData];
 }
-
-- (void)createTaskListAllDeleteActionSheet {
-    UIAlertController *taskListAllDeleteActionSheet =
-    [UIAlertController alertControllerWithTitle:nil
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", @"削除")
-                             style:UIAlertActionStyleDestructive
-                           handler:^(UIAlertAction * action) {
-                               [self.database deleteAllTaskName:self.didTapFolderData];
-                           }];
-    
-    UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"キャンセル")
-                             style:UIAlertActionStyleCancel
-                           handler:nil];
-    
-    [taskListAllDeleteActionSheet addAction:deleteAction];
-    [taskListAllDeleteActionSheet addAction:cancelAction];
-    
-    [self presentViewController:taskListAllDeleteActionSheet animated:true completion:nil];
+- (void)editTask:(NSString *) inputText {
+    // update
+    [self.database updateTaskList:inputText updateDate:[NSDate date] taskId:self.didTapCellData.taskId];
+}
+- (void)deleteAllTask {
+    // allDelete
+    [self.database deleteAllTaskName:self.didTapFolderData];
 }
 
 #pragma mark - TableViewDelegate Methods
@@ -199,7 +102,19 @@ static CGFloat const estimatedCellHeight = 80;
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.taskListTableView.editing) {
-        [self createTaskListAleart:indexPath];
+        // 編集モード時のタップ
+        self.didTapCellData = self.provider.taskListDataList[indexPath.row];
+        
+        self.alearHelper = [AleartHelper new];
+        self.alearHelper.delegate = self;
+        
+        UIAlertController *editTaskAleart = [self.alearHelper createEditTaskAleart:self.didTapCellData.taskName
+                                                                       placeholder:NSLocalizedString(@"setTaskName", @"hoge")
+                                                                        alertTitle:self.didTapCellData.taskName
+                                                                      alertMessage:NSLocalizedString(@"setNewTaskName", @"hoge")];
+        
+        [self presentViewController:editTaskAleart animated:YES completion:nil];
+
     } else {
         /// 編集中ではない時は選択を解除
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -226,16 +141,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     self.taskListTableView.dataSource = self.provider;
     
-    [self.taskListTableView deleteRowsAtIndexPaths:@[index]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.taskListTableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Action Methods
 - (IBAction)editTaskList:(id)sender {
+    
+    self.alearHelper = [AleartHelper new];
+    self.alearHelper.delegate = self;
+    
     if (self.taskListTableView.editing) {
-        [self createTaskListAllDeleteActionSheet];
+        
+        UIAlertController *allTaskDeleteActionSheet = [self.alearHelper createAllDeleteTaskActionSheet];
+        [self presentViewController:allTaskDeleteActionSheet animated:YES completion:nil];
+        
     } else {
-        [self createTaskListAleart:nil];
+        
+        UIAlertController *newTaskAleart = [self.alearHelper createNewTaskAleart:@"" placeholder:NSLocalizedString(@"setTaskName", @"hoge")
+                                                                      alertTitle:@"" alertMessage:NSLocalizedString(@"setTaskName", @"hoge")];
+        
+        [self presentViewController:newTaskAleart animated:YES completion:nil];
     }
 }
 
