@@ -15,10 +15,6 @@
     self = [super init];
     if (self) {
         self.db = [[FMDatabase alloc] initWithPath:[Database dbPath]];
-#if DEBUG
-        /// デバッグ時のみSQLiteの実行をトレースする
-        ///self.db.traceExecution = YES;
-#endif
         /// テーブルがなければ作る
         [self createFolderListTable];
         [self createTaskListTable];

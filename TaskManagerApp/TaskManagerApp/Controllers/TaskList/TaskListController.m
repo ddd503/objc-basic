@@ -45,7 +45,7 @@ static CGFloat const estimatedCellHeight = 80;
     self.navigationItem.title = self.didTapFolderData.folderName;
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", nil);
     
     self.database = [Database new];
     self.database.delegate = self;
@@ -68,11 +68,11 @@ static CGFloat const estimatedCellHeight = 80;
 }
 - (void)reloadTaskListToolbar:(BOOL)editing {
     if (editing) {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"hoge");
-        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"hoge")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", nil);
+        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", nil)];
     } else {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
-        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"addTask", @"hoge")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", nil);
+        [self.taskListRightToolbarButton setTitle:NSLocalizedString(@"addTask", nil)];
     }
 }
 
@@ -109,9 +109,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         self.alearHelper.delegate = self;
         
         UIAlertController *editTaskAleart = [self.alearHelper createEditTaskAleart:self.didTapCellData.taskName
-                                                                       placeholder:NSLocalizedString(@"setTaskName", @"hoge")
+                                                                       placeholder:NSLocalizedString(@"setTaskName", nil)
                                                                         alertTitle:self.didTapCellData.taskName
-                                                                      alertMessage:NSLocalizedString(@"setNewTaskName", @"hoge")];
+                                                                      alertMessage:NSLocalizedString(@"setNewTaskName", nil)];
         
         [self presentViewController:editTaskAleart animated:YES completion:nil];
 
@@ -157,8 +157,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     } else {
         
-        UIAlertController *newTaskAleart = [self.alearHelper createNewTaskAleart:@"" placeholder:NSLocalizedString(@"setTaskName", @"hoge")
-                                                                      alertTitle:@"" alertMessage:NSLocalizedString(@"setTaskName", @"hoge")];
+        UIAlertController *newTaskAleart = [self.alearHelper createNewTaskAleart:@"" placeholder:NSLocalizedString(@"setTaskName", nil)
+                                                                      alertTitle:@"" alertMessage:NSLocalizedString(@"setTaskName", nil)];
         
         [self presentViewController:newTaskAleart animated:YES completion:nil];
     }

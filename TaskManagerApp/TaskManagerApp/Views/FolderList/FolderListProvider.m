@@ -29,19 +29,7 @@
     
     [cell setFolderListCellData:self.folderListDataList[indexPath.row]];
     
-    /// 降順で日付を取り出しているか確認
-    [self checkdate:indexPath
-         folderName:self.folderListDataList[indexPath.row].folderName
-               date:self.folderListDataList[indexPath.row].updateDate];
-    
     return cell;
-}
-
-- (void)checkdate:(NSIndexPath *)index folderName:(NSString *)folderName date:(NSDate *)date {
-    NSDateFormatter *formatter = [NSDateFormatter new];
-    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
-    NSString *dateText = [formatter stringFromDate:date];
-    NSLog(@"indexPath.row:%ld,フォルダ名:%@,更新時間:%@", (long)index.row, folderName, dateText);
 }
 
 - (void)tableView:(UITableView *)tableView

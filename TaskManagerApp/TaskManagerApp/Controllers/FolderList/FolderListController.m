@@ -45,7 +45,7 @@ static CGFloat const estimatedCellHeight = 80;
 - (void)setup {
     [self setupTableView];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
+    self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", nil);
     // テーブル作成とデリゲートオン
     self.database = [Database new];
     self.database.delegate = self;
@@ -67,11 +67,11 @@ static CGFloat const estimatedCellHeight = 80;
 
 - (void)reloadFolderListToolbar:(BOOL)editing {
     if (editing) {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", @"hoge");
-        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", @"hoge")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"done", nil);
+        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"allDelete", nil)];
     } else {
-        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", @"hoge");
-        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"newFolder", @"hoge")];
+        self.navigationItem.rightBarButtonItem.title = NSLocalizedString(@"edit", nil);
+        [self.folderListRightToolbarButton setTitle:NSLocalizedString(@"newFolder", nil)];
     }
 }
 
@@ -109,9 +109,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         self.alearHelper.delegate = self;
         
         UIAlertController *editFolderAleart = [self.alearHelper createEditFolderAleart:self.didTapCellData.folderName
-                                                                           placeholder:NSLocalizedString(@"setFolderName", @"hoge")
+                                                                           placeholder:NSLocalizedString(@"setFolderName", nil)
                                                                             alertTitle:self.didTapCellData.folderName
-                                                                          alertMessage:NSLocalizedString(@"setNewFolderName", @"hoge")];
+                                                                          alertMessage:NSLocalizedString(@"setNewFolderName", nil)];
         [self presentViewController:editFolderAleart animated:YES completion:nil];
 
     } else {
@@ -157,9 +157,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         
     } else {
         UIAlertController *newFolderAleart = [self.alearHelper createNewFolderAleart:@""
-                                                                         placeholder:NSLocalizedString(@"setFolderName", @"hoge")
+                                                                         placeholder:NSLocalizedString(@"setFolderName", nil)
                                                                           alertTitle:@""
-                                                                        alertMessage:NSLocalizedString(@"setFolderName", @"hoge")];
+                                                                        alertMessage:NSLocalizedString(@"setFolderName", nil)];
         
         [self presentViewController:newFolderAleart animated:YES completion:nil];
     }

@@ -30,11 +30,11 @@
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     
-    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", @"hoge")
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", nil)
                                                        style:UIAlertActionStyleDefault
                                                      handler:^(UIAlertAction * _Nonnull action) {
                                                          // ハンドラー内でのnilを防ぐ
@@ -77,11 +77,11 @@
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     
-    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", @"hoge")
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", nil)
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
                                                            // ハンドラー内でのnilを防ぐ
@@ -122,7 +122,7 @@
     __weak typeof(self) weakSelf = self;
     
     UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", @"hoge")
+    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
                              style:UIAlertActionStyleDestructive
                            handler:^(UIAlertAction * action) {
                                __strong typeof(self) strongSelf = weakSelf;
@@ -133,7 +133,7 @@
                            }];
     
     UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                              style:UIAlertActionStyleCancel
                            handler:nil];
     
@@ -156,11 +156,11 @@
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     
-    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", @"hoge")
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", nil)
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
                                                            // ハンドラー内でのnilを防ぐ
@@ -203,11 +203,11 @@
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                                                            style:UIAlertActionStyleCancel
                                                          handler:nil];
     
-    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", @"hoge")
+    UIAlertAction *saveAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"save", nil)
                                                          style:UIAlertActionStyleDefault
                                                        handler:^(UIAlertAction * _Nonnull action) {
                                                            // ハンドラー内でのnilを防ぐ
@@ -248,7 +248,7 @@
     __weak typeof(self) weakSelf = self;
     
     UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", @"hoge")
+    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
                              style:UIAlertActionStyleDestructive
                            handler:^(UIAlertAction * action) {
                                __strong typeof(self) strongSelf = weakSelf;
@@ -259,7 +259,7 @@
                            }];
     
     UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"hoge")
+    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
                              style:UIAlertActionStyleCancel
                            handler:nil];
     
