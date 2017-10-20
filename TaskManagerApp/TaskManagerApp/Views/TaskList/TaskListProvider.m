@@ -23,8 +23,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TaskListCell *cell =
-    [tableView dequeueReusableCellWithIdentifier:[TaskListCell taskListCellIdentifier] forIndexPath:indexPath];
+    TaskListCell *cell = [tableView dequeueReusableCellWithIdentifier:[TaskListCell taskListCellIdentifier]
+                                                         forIndexPath:indexPath];
     
     [cell setTaskListData:self.taskListDataList[indexPath.row]];
     

@@ -153,8 +153,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (self.folderListTableView.editing) {
         UIAlertController *allDeleteFolderActionSheet = [self.alearHelper createAllDeleteFolderActionSheet];
-        [self presentViewController:allDeleteFolderActionSheet animated:YES completion:nil];
         
+        [self presentViewController:allDeleteFolderActionSheet animated:YES completion:nil];
     } else {
         UIAlertController *newFolderAleart = [self.alearHelper createNewFolderAleart:@""
                                                                          placeholder:NSLocalizedString(@"setFolderName", nil)

@@ -104,6 +104,7 @@
         if (!strongSelf) {
             return;
         }
+        
         textField.placeholder = placeholder;
         textField.text = defaultText;
         textField.delegate = strongSelf;
@@ -113,29 +114,26 @@
 }
 
 - (UIAlertController *)createAllDeleteFolderActionSheet {
-    UIAlertController *allDeletefolderActionSheet =
-    [UIAlertController alertControllerWithTitle:nil
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *allDeletefolderActionSheet = [UIAlertController alertControllerWithTitle:nil
+                                                                                        message:nil
+                                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
     
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
-                             style:UIAlertActionStyleDestructive
-                           handler:^(UIAlertAction * action) {
-                               __strong typeof(self) strongSelf = weakSelf;
-                               if (!strongSelf) {
-                                   return;
-                               }
-                               [strongSelf.delegate deleteAllFolder];
-                           }];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * action) {
+                                                             __strong typeof(self) strongSelf = weakSelf;
+                                                             if (!strongSelf) {
+                                                                 return;
+                                                             }
+                                                             [strongSelf.delegate deleteAllFolder];
+                                                         }];
     
-    UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
-                             style:UIAlertActionStyleCancel
-                           handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
     
     [allDeletefolderActionSheet addAction:deleteAction];
     [allDeletefolderActionSheet addAction:cancelAction];
@@ -239,29 +237,26 @@
 }
 
 - (UIAlertController *)createAllDeleteTaskActionSheet {
-    UIAlertController *allDeletefolderActionSheet =
-    [UIAlertController alertControllerWithTitle:nil
-                                        message:nil
-                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *allDeletefolderActionSheet = [UIAlertController alertControllerWithTitle:nil
+                                                                                        message:nil
+                                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
     
     // handlar内で使うため
     __weak typeof(self) weakSelf = self;
     
-    UIAlertAction *deleteAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
-                             style:UIAlertActionStyleDestructive
-                           handler:^(UIAlertAction * action) {
-                               __strong typeof(self) strongSelf = weakSelf;
-                               if (!strongSelf) {
-                                   return;
-                               }
-                               [strongSelf.delegate deleteAllTask];
-                           }];
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"delete", nil)
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * action) {
+                                                             __strong typeof(self) strongSelf = weakSelf;
+                                                             if (!strongSelf) {
+                                                                 return;
+                                                             }
+                                                             [strongSelf.delegate deleteAllTask];
+                                                         }];
     
-    UIAlertAction *cancelAction =
-    [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
-                             style:UIAlertActionStyleCancel
-                           handler:nil];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", nil)
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
     
     [allDeletefolderActionSheet addAction:deleteAction];
     [allDeletefolderActionSheet addAction:cancelAction];

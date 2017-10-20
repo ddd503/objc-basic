@@ -24,8 +24,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    FolderListCell *cell =
-    [tableView dequeueReusableCellWithIdentifier:[FolderListCell folderListCellIdentifier] forIndexPath:indexPath];
+    FolderListCell *cell = [tableView dequeueReusableCellWithIdentifier:[FolderListCell folderListCellIdentifier]
+                                                           forIndexPath:indexPath];
     
     [cell setFolderListCellData:self.folderListDataList[indexPath.row]];
     

@@ -128,16 +128,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - DatabaseDelegate Methods
 - (void)updateTaskList {
-    self.provider.taskListDataList =
-    [self.database selectTaskList:self.didTapFolderData.folderId];
+    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
     [self.taskListTableView reloadData];
 }
 - (void)deleteTaskListCell:(NSIndexPath *)index {
-    self.provider.taskListDataList =
-    [self.database selectTaskList:self.didTapFolderData.folderId];
+    self.provider.taskListDataList = [self.database selectTaskList:self.didTapFolderData.folderId];
     
     self.taskListTableView.dataSource = self.provider;
     
@@ -151,14 +149,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.alearHelper.delegate = self;
     
     if (self.taskListTableView.editing) {
-        
         UIAlertController *allTaskDeleteActionSheet = [self.alearHelper createAllDeleteTaskActionSheet];
+        
         [self presentViewController:allTaskDeleteActionSheet animated:YES completion:nil];
-        
     } else {
-        
-        UIAlertController *newTaskAleart = [self.alearHelper createNewTaskAleart:@"" placeholder:NSLocalizedString(@"setTaskName", nil)
-                                                                      alertTitle:@"" alertMessage:NSLocalizedString(@"setTaskName", nil)];
+        UIAlertController *newTaskAleart = [self.alearHelper createNewTaskAleart:@""
+                                                                     placeholder:NSLocalizedString(@"setTaskName", nil)
+                                                                      alertTitle:@""
+                                                                    alertMessage:NSLocalizedString(@"setTaskName", nil)];
         
         [self presentViewController:newTaskAleart animated:YES completion:nil];
     }
