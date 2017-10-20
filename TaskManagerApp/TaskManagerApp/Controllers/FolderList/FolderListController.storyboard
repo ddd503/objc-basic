@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dzJ-Gv-Ia9">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--フォルダ-->
+        <scene sceneID="blX-qN-3y1">
+            <objects>
+                <viewController storyboardIdentifier="FolderListController" id="nZ7-8k-JzR" customClass="FolderListController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eA2-Jt-Y4P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amU-PT-VN7">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="flexibleSpace" id="u5h-ln-jGS"/>
+                                    <barButtonItem title="新規フォルダ" id="0Ur-Aa-YUa">
+                                        <connections>
+                                            <action selector="editFolderList:" destination="nZ7-8k-JzR" id="nnJ-SB-jWp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9p-Yn-ZUS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="FolderListCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="FolderListCell" id="i4V-dq-OGJ" customClass="FolderListCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i4V-dq-OGJ" id="npS-8t-xKD">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="amU-PT-VN7" firstAttribute="bottom" secondItem="dR4-n9-YiM" secondAttribute="bottom" id="S3h-97-ZKM"/>
+                            <constraint firstItem="amU-PT-VN7" firstAttribute="width" secondItem="eA2-Jt-Y4P" secondAttribute="width" id="egE-s2-GTD"/>
+                            <constraint firstItem="amU-PT-VN7" firstAttribute="centerX" secondItem="eA2-Jt-Y4P" secondAttribute="centerX" id="f9u-il-MOw"/>
+                            <constraint firstItem="amU-PT-VN7" firstAttribute="top" secondItem="G9p-Yn-ZUS" secondAttribute="bottom" id="fbe-PH-q5c"/>
+                            <constraint firstItem="dR4-n9-YiM" firstAttribute="trailing" secondItem="G9p-Yn-ZUS" secondAttribute="trailing" id="kQG-Mh-BRt"/>
+                            <constraint firstItem="G9p-Yn-ZUS" firstAttribute="top" secondItem="dR4-n9-YiM" secondAttribute="top" id="nhP-cP-oxs"/>
+                            <constraint firstItem="G9p-Yn-ZUS" firstAttribute="leading" secondItem="dR4-n9-YiM" secondAttribute="leading" id="qaE-I2-DHh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dR4-n9-YiM"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="フォルダ" id="t6W-FA-TRG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="ajt-2Y-D7X"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="folderListRightToolbarButton" destination="0Ur-Aa-YUa" id="JVI-Wd-CUP"/>
+                        <outlet property="folderListTableView" destination="G9p-Yn-ZUS" id="nnz-tE-cHV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N1r-dy-HeT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="420" y="142.57871064467767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="R8I-Pg-pJA">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dzJ-Gv-Ia9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gdI-FI-ArS">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="nZ7-8k-JzR" kind="relationship" relationship="rootViewController" id="NGe-a7-TF8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOh-Ad-ghm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-254" y="143"/>
+        </scene>
+    </scenes>
+</document>

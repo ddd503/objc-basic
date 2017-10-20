@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  TaskManagerApp
+
+  Created by kawaharadai on 2017/10/10.
+  Copyright © 2017年 dai kawahara. All rights reserved.
+*/
+"save" = "保存";
+"delete" = "削除";
+"edit" = "編集";
+"done" = "完了";
+"cancel" = "キャンセル";
+"allDelete" = "すべて削除";
+"newFolder" = "新規フォルダ";
+"addTask" = "タスク追加";
+"setFolderName" = "このフォルダの名前を入力してください。";
+"setNewFolderName" = "このフォルダの新しい名前を入力してください。";
+"setTaskName" = "このタスクの名前を入力してください。";
+"setNewTaskName" = "このタスクの新しい名前を入力してください。";
+
